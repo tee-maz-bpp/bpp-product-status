@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q3 Portfolio Update — Product & Technology</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2340;
+      --navy-mid: #243055;
+      --teal: #00857a;
+      --teal-light: #e6f4f3;
+      --amber: #e07b00;
+      --amber-light: #fff4e0;
+      --green: #2e7d32;
+      --green-light: #e8f5e9;
+      --red: #c62828;
+      --red-light: #fde8e8;
+      --text: #1a1a2e;
+      --text-soft: #4a4a6a;
+      --border: #dde2ef;
+      --bg: #f5f6fa;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 40px 24px 32px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .header-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .header-meta {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+    .updated-tag {
+      font-size: 13px;
+      opacity: 0.65;
+    }
+
+    /* ── RAG legend ── */
+    .legend {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      padding: 0 24px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-green  { background: var(--green); }
+    .dot-amber  { background: var(--amber); }
+    .dot-red    { background: var(--red); }
+
+    /* ── Main layout ── */
+    .main {
+      max-width: 1100px;
+      margin: 32px auto 60px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── Workstream card ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-header-left {}
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 680px;
+    }
+
+    /* RAG badges */
+    .rag {
+      flex-shrink: 0;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-top: 2px;
+    }
+    .rag-green  { background: var(--green-light);  color: var(--green); }
+    .rag-amber  { background: var(--amber-light); color: var(--amber); }
+    .rag-red    { background: var(--red-light);   color: var(--red); }
+
+    /* ── Now / Next / Later columns ── */
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: 720px) {
+      .columns { grid-template-columns: 1fr; }
+    }
+
+    .col {
+      padding: 20px 28px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .col:last-child { border-right: none; }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .col-now   .col-label { color: var(--teal); }
+    .col-next  .col-label { color: var(--amber); }
+    .col-later .col-label { color: var(--text-soft); }
+
+    .col-now   { background: var(--teal-light); }
+    .col-later { background: #fafbfc; }
+
+    .item-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .item-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .item-list li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--text-soft);
+      font-size: 18px;
+      line-height: 1.1;
+    }
+    .note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--amber);
+      background: var(--amber-light);
+      border-left: 3px solid var(--amber);
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: var(--text-soft);
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="page-header">
+  <div class="header-inner">
+    <p class="header-eyebrow">BPP University · Product &amp; Technology</p>
+    <h1 class="header-title">Q3 Portfolio Update</h1>
+    <p class="header-sub">March – May 2026 &nbsp;·&nbsp; Student Experience workstreams</p>
+    <div class="header-meta">
+      <span class="meta-pill">3 workstreams</span>
+      <span class="updated-tag">Last updated: 7 May 2026 &nbsp;·&nbsp; Tatenda Mazivanhanga</span>
+    </div>
+  </div>
+</header>
+
+<!-- RAG legend -->
+<div class="legend">
+  <div class="legend-item"><span class="dot dot-green"></span> On track</div>
+  <div class="legend-item"><span class="dot dot-amber"></span> In progress — some items to resolve</div>
+  <div class="legend-item"><span class="dot dot-red"></span> Blocked / at risk</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     WORKSTREAMS
+══════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- ── 1. Student Support Bot ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <h2 class="card-title">Student Support Bot</h2>
+        <p class="card-desc">An AI-powered assistant embedded in the Student Hub. Answers common queries, guides students to the right place, and raises support cases when needed. Launched to all university students in March 2026.</p>
+      </div>
+      <span class="rag rag-amber">In progress</span>
+    </div>
+    <div class="columns">
+      <div class="col col-now">
+        <p class="col-label">Now</p>
+        <ul class="item-list">
+          <li>Bot live for 100% of university students since 28 March</li>
+          <li>Cases down 38% compared to the same period last year</li>
+          <li>Comms campaign running this week — email, explainer video, and in-app notification to all students</li>
+          <li>Two known issues with the bot being actively managed with our supplier: an escalation loop, and a missing case button</li>
+        </ul>
+      </div>
+      <div class="col col-next">
+        <p class="col-label">Next</p>
+        <ul class="item-list">
+          <li>Confirmed fix timelines from supplier for the two escalation issues</li>
+          <li>Full analysis of agent survey data to understand whether the phone increase is stabilising</li>
+          <li>Validate that the recent visibility fix has brought the remaining students who couldn't see the bot into the experience</li>
+        </ul>
+        <div class="note">⚠ Fix ETAs from supplier not yet confirmed — chasing this week.</div>
+      </div>
+      <div class="col col-later">
+        <p class="col-label">Later</p>
+        <ul class="item-list">
+          <li>Bot conversations visible to support agents in Salesforce, so agents have full context when a student escalates to a human</li>
+          <li>Milestones and case history surfaced for students who contact via channels other than the web bot</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. AA/EC Migration ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <h2 class="card-title">Academic Appeals &amp; Extenuating Circumstances</h2>
+        <p class="card-desc">Moving the student process for raising Academic Appeals and Extenuating Circumstances from a legacy system into Salesforce. Students will submit via the Hub; the ORC and Results &amp; Awards teams will manage cases in Salesforce. ~10,000 cases per year.</p>
+      </div>
+      <span class="rag rag-amber">In progress</span>
+    </div>
+    <div class="columns">
+      <div class="col col-now">
+        <p class="col-label">Now</p>
+        <ul class="item-list">
+          <li>Core Salesforce case setup completed and passed quality review</li>
+          <li>Student-facing Hub forms in development — feature flag created, key screens in progress</li>
+          <li>How students submit evidence confirmed (email-based, consistent with existing process)</li>
+          <li>Decision made: all in-flight cases (~100) will move to Salesforce at go-live — no dual running</li>
+        </ul>
+      </div>
+      <div class="col col-next">
+        <p class="col-label">Next</p>
+        <ul class="item-list">
+          <li>Product review and sign-off of the Salesforce case setup</li>
+          <li>Confirm which team owns the notification emails sent to students when their case status changes</li>
+          <li>Start data migration planning — mapping fields from the old system to Salesforce</li>
+          <li>ORC and Results &amp; Awards team review of case management screens</li>
+        </ul>
+        <div class="note">⚠ Data migration planning not yet started — this is the longest lead-time item and needs unblocking.</div>
+      </div>
+      <div class="col col-later">
+        <p class="col-label">Later</p>
+        <ul class="item-list">
+          <li>Full go-live — students submit via Hub, ORC manages in Salesforce</li>
+          <li>Historical AA/EC records archived to long-term storage (6-year retention requirement)</li>
+          <li>Legacy system retired for this process</li>
+          <li>Two Salesforce reports live: one for caseworkers (with student details), one for trends (anonymised)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Legacy Attendance Decom ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <h2 class="card-title">Legacy Attendance Decommission</h2>
+        <p class="card-desc">Replacing the old QR-scan attendance tracking system with the new Tutor Portal. University student attendance is now recorded and reported through the new platform. The old system is being shut down.</p>
+      </div>
+      <span class="rag rag-green">On track</span>
+    </div>
+    <div class="columns">
+      <div class="col col-now">
+        <p class="col-label">Now</p>
+        <ul class="item-list">
+          <li>New Tutor Portal fully live for university students — attendance data flowing correctly</li>
+          <li>Online Classroom auto-marking live since 29 April — system automatically records attendance for online sessions, removing the need for manual tutor marking</li>
+          <li>Old QR flow turned off</li>
+          <li>Attendance reports repointed to the new system</li>
+        </ul>
+      </div>
+      <div class="col col-next">
+        <p class="col-label">Next</p>
+        <ul class="item-list">
+          <li>Final removal of remaining old attendance infrastructure (in progress this sprint)</li>
+          <li>Resolve a data linking gap between Tutor Portal and timetabling data — needed for compliance teams to target specific student groups for audits</li>
+        </ul>
+      </div>
+      <div class="col col-later">
+        <p class="col-label">Later</p>
+        <ul class="item-list">
+          <li>Database decommission — separate decision, no active timeline yet</li>
+          <li>Potential extension of the auto-marking pipeline to additional learner types beyond university students</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Questions? Contact <a href="mailto:tatendamazivanhanga@bpp.com">Tatenda Mazivanhanga</a>, Product Manager — Product &amp; Technology
+</footer>
+
+</body>
+</html>
