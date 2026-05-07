@@ -9,7 +9,6 @@
 
     :root {
       --navy: #1a2340;
-      --navy-mid: #243055;
       --teal: #00857a;
       --teal-light: #e6f4f3;
       --amber: #e07b00;
@@ -39,10 +38,7 @@
       color: var(--white);
       padding: 40px 24px 32px;
     }
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
     .header-eyebrow {
       font-size: 12px;
       letter-spacing: 0.12em;
@@ -50,16 +46,9 @@
       opacity: 0.6;
       margin-bottom: 8px;
     }
-    .header-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .header-sub {
-      font-size: 14px;
-      opacity: 0.7;
-    }
-    .header-meta {
+    .header-title { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .header-sub   { font-size: 14px; opacity: 0.7; }
+    .header-meta  {
       margin-top: 20px;
       display: flex;
       align-items: center;
@@ -74,10 +63,7 @@
       font-size: 13px;
       opacity: 0.85;
     }
-    .updated-tag {
-      font-size: 13px;
-      opacity: 0.65;
-    }
+    .updated-tag { font-size: 13px; opacity: 0.65; }
 
     /* ── RAG legend ── */
     .legend {
@@ -95,12 +81,7 @@
       font-size: 13px;
       color: var(--text-soft);
     }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .dot-green  { background: var(--green); }
     .dot-amber  { background: var(--amber); }
     .dot-red    { background: var(--red); }
@@ -131,7 +112,6 @@
       padding: 22px 28px 18px;
       border-bottom: 1px solid var(--border);
     }
-    .card-header-left {}
     .card-title {
       font-size: 18px;
       font-weight: 700;
@@ -143,20 +123,72 @@
       color: var(--text-soft);
       max-width: 680px;
     }
-
-    /* RAG badges */
-    .rag {
+    .card-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
       flex-shrink: 0;
+    }
+    .target-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+
+    /* ── RAG badges ── */
+    .rag {
       padding: 5px 16px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.02em;
-      margin-top: 2px;
+      white-space: nowrap;
     }
-    .rag-green  { background: var(--green-light);  color: var(--green); }
+    .rag-green  { background: var(--green-light); color: var(--green); }
     .rag-amber  { background: var(--amber-light); color: var(--amber); }
     .rag-red    { background: var(--red-light);   color: var(--red); }
+
+    /* ── Metric bar (headline stats) ── */
+    .metric-bar {
+      display: flex;
+      gap: 0;
+      background: var(--navy);
+      border-bottom: 1px solid var(--border);
+    }
+    .metric {
+      padding: 18px 28px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .metric:last-child { border-right: none; }
+    .metric-value {
+      display: block;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .metric-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Escalation banner ── */
+    .escalation {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 0;
+      padding: 14px 28px;
+      background: var(--red-light);
+      border-bottom: 1px solid #f5c6c6;
+      font-size: 14px;
+      color: var(--red);
+    }
+    .escalation-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .escalation strong { font-weight: 700; }
 
     /* ── Now / Next / Later columns ── */
     .columns {
@@ -178,8 +210,14 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .col-quarter {
+      font-size: 11px;
+      color: var(--text-soft);
       margin-bottom: 14px;
     }
+
     .col-now   .col-label { color: var(--teal); }
     .col-next  .col-label { color: var(--amber); }
     .col-later .col-label { color: var(--text-soft); }
@@ -234,9 +272,6 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════ -->
 <header class="page-header">
   <div class="header-inner">
     <p class="header-eyebrow">BPP University · Product &amp; Technology</p>
@@ -249,16 +284,12 @@
   </div>
 </header>
 
-<!-- RAG legend -->
 <div class="legend">
-  <div class="legend-item"><span class="dot dot-green"></span> On track</div>
-  <div class="legend-item"><span class="dot dot-amber"></span> In progress — some items to resolve</div>
-  <div class="legend-item"><span class="dot dot-red"></span> Blocked / at risk</div>
+  <div class="legend-item"><span class="dot dot-green"></span> On track / completing</div>
+  <div class="legend-item"><span class="dot dot-amber"></span> Needs attention</div>
+  <div class="legend-item"><span class="dot dot-red"></span> At risk — action needed</div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     WORKSTREAMS
-══════════════════════════════════════════ -->
 <main class="main">
 
   <!-- ── 1. Student Support Bot ── -->
@@ -266,34 +297,56 @@
     <div class="card-header">
       <div class="card-header-left">
         <h2 class="card-title">Student Support Bot</h2>
-        <p class="card-desc">An AI-powered assistant embedded in the Student Hub. Answers common queries, guides students to the right place, and raises support cases when needed. Launched to all university students in March 2026.</p>
+        <p class="card-desc">AI-powered assistant embedded in the Student Hub. First point of contact for student support queries. Launched to all university students March 2026.</p>
       </div>
-      <span class="rag rag-amber">In progress</span>
+      <div class="card-header-right">
+        <span class="rag rag-amber">Needs attention</span>
+        <span class="target-label">Q3 close-out · Q4 next phase</span>
+      </div>
     </div>
+
+    <div class="metric-bar">
+      <div class="metric">
+        <span class="metric-value">38%</span>
+        <span class="metric-label">Fewer student cases since launch</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">100%</span>
+        <span class="metric-label">Of university students have access</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value">83%</span>
+        <span class="metric-label">Of bot users are on mobile</span>
+      </div>
+    </div>
+
     <div class="columns">
       <div class="col col-now">
         <p class="col-label">Now</p>
+        <p class="col-quarter">Q3 · May 2026</p>
         <ul class="item-list">
-          <li>Bot live for 100% of university students since 28 March</li>
-          <li>Cases down 38% compared to the same period last year</li>
-          <li>Comms campaign running this week — email, explainer video, and in-app notification to all students</li>
-          <li>Two known issues with the bot being actively managed with Learnwise: an escalation loop, and a missing case button</li>
-          <li>Agent survey data analysed — results confirm the phone increase is explained by student awareness gaps and case-level demand, not bot failure</li>
+          <li>Bot live for all university students since 28 March</li>
+          <li>Two visibility fixes shipped 5 May — targeting students who couldn't reach the bot due to ad blockers or incognito browsing</li>
+          <li>Comms campaign live this week — email, explainer video, and in-app notification to all students</li>
+          <li>Two escalation issues being actively managed with Learnwise: a loop that doesn't offer a case path, and a missing case button</li>
+          <li>Agent survey confirmed: the phone increase is explained by awareness gaps and case-level demand — not bot failure</li>
         </ul>
       </div>
       <div class="col col-next">
         <p class="col-label">Next</p>
+        <p class="col-quarter">Q3 close-out</p>
         <ul class="item-list">
-          <li>Confirmed fix timelines from Learnwise for the two escalation issues</li>
+          <li>Receive and confirm fix timelines from Learnwise for the two escalation issues</li>
           <li>Review case and phone volume data to confirm whether the comms campaign and visibility fixes are driving further reduction</li>
         </ul>
         <div class="note">⚠ Fix ETAs from Learnwise not yet confirmed — chasing this week.</div>
       </div>
       <div class="col col-later">
         <p class="col-label">Later</p>
+        <p class="col-quarter">Q4 2025/26 onwards</p>
         <ul class="item-list">
-          <li>Bot conversations visible to support agents in Salesforce, so agents have full context when a student escalates to a human</li>
-          <li>Milestones and case history surfaced for students who contact via channels other than the web bot</li>
+          <li>Bot conversations visible to support agents in Salesforce — full context when a student escalates to a human</li>
+          <li>Case milestones and history available for students who contact via phone or other channels</li>
         </ul>
       </div>
     </div>
@@ -304,37 +357,49 @@
     <div class="card-header">
       <div class="card-header-left">
         <h2 class="card-title">Academic Appeals &amp; Extenuating Circumstances</h2>
-        <p class="card-desc">Moving the student process for raising Academic Appeals and Extenuating Circumstances from a legacy system into Salesforce. Students will submit via the Hub; the ORC and Results &amp; Awards teams will manage cases in Salesforce. ~10,000 cases per year.</p>
+        <p class="card-desc">Moving Academic Appeals and Extenuating Circumstances from a legacy system into Salesforce. Students submit via the Hub; ORC and Results &amp; Awards manage cases in Salesforce. ~10,000 cases per year.</p>
       </div>
-      <span class="rag rag-amber">In progress</span>
+      <div class="card-header-right">
+        <span class="rag rag-red">At risk</span>
+        <span class="target-label">Target go-live: Q4 2025/26</span>
+      </div>
     </div>
+
+    <div class="escalation">
+      <span class="escalation-icon">🚨</span>
+      <span><strong>Action needed:</strong> Data migration planning has not started. This is the longest lead-time item — without it, Q4 go-live is at risk. Ownership and a start date need to be confirmed now.</span>
+    </div>
+
     <div class="columns">
       <div class="col col-now">
         <p class="col-label">Now</p>
+        <p class="col-quarter">Q3 · May 2026</p>
         <ul class="item-list">
           <li>Core Salesforce case setup completed and passed quality review</li>
-          <li>Student-facing Hub forms in development — feature flag created, key screens in progress</li>
-          <li>How students submit evidence confirmed (email-based, consistent with existing process)</li>
-          <li>Decision made: all in-flight cases (~100) will move to Salesforce at go-live — no dual running</li>
+          <li>Student-facing Hub forms in development — feature flag in place, key screens in progress</li>
+          <li>Evidence submission confirmed — students submit via email reply, consistent with the existing process</li>
+          <li>Decision confirmed: all ~100 in-flight cases move to Salesforce at go-live, no dual running of old and new systems</li>
         </ul>
       </div>
       <div class="col col-next">
         <p class="col-label">Next</p>
+        <p class="col-quarter">Before Q4 go-live</p>
         <ul class="item-list">
-          <li>Product review and sign-off of the Salesforce case setup</li>
-          <li>Confirm which team owns the notification emails sent to students when their case status changes</li>
-          <li>Start data migration planning — mapping fields from the old system to Salesforce</li>
-          <li>ORC and Results &amp; Awards team review of case management screens</li>
+          <li>Product sign-off of Salesforce case setup</li>
+          <li>Confirm which team owns notification emails to students when their case status changes</li>
+          <li>Start data migration planning — mapping fields from the legacy system to Salesforce and Snowflake</li>
+          <li>ORC and Results &amp; Awards teams to review and sign off case management screens</li>
         </ul>
-        <div class="note">⚠ Data migration planning not yet started — this is the longest lead-time item and needs unblocking.</div>
       </div>
       <div class="col col-later">
         <p class="col-label">Later</p>
+        <p class="col-quarter">Q4 2025/26 go-live</p>
         <ul class="item-list">
-          <li>Full go-live — students submit via Hub, ORC manages in Salesforce</li>
-          <li>Historical AA/EC records archived to long-term storage (6-year retention requirement)</li>
+          <li>Students submit Academic Appeals and ECs via the Hub</li>
+          <li>ORC manages cases in Salesforce; EC cases transfer to Results &amp; Awards</li>
+          <li>Historical records archived for 6-year retention</li>
           <li>Legacy system retired for this process</li>
-          <li>Two Salesforce reports live: one for caseworkers (with student details), one for trends (anonymised)</li>
+          <li>Two reports live: one for caseworkers, one anonymised trends view</li>
         </ul>
       </div>
     </div>
@@ -345,32 +410,39 @@
     <div class="card-header">
       <div class="card-header-left">
         <h2 class="card-title">Legacy Attendance Decommission</h2>
-        <p class="card-desc">Replacing the old QR-scan attendance tracking system with the new Tutor Portal. University student attendance is now recorded and reported through the new platform. The old system is being shut down.</p>
+        <p class="card-desc">Replacing the old QR-scan attendance tracking system with the new Tutor Portal. Attendance is now recorded and reported through the new platform. The old system is being shut down.</p>
       </div>
-      <span class="rag rag-green">On track</span>
+      <div class="card-header-right">
+        <span class="rag rag-green">Completing</span>
+        <span class="target-label">Closing out Q3 2025/26</span>
+      </div>
     </div>
+
     <div class="columns">
       <div class="col col-now">
         <p class="col-label">Now</p>
+        <p class="col-quarter">Q3 · May 2026</p>
         <ul class="item-list">
           <li>New Tutor Portal fully live for university students — attendance data flowing correctly</li>
-          <li>Online Classroom auto-marking live since 29 April — system automatically records attendance for online sessions, removing the need for manual tutor marking</li>
+          <li>Online Classroom auto-marking live since 29 April — system automatically records attendance for online sessions, removing manual tutor marking</li>
           <li>Old QR flow turned off</li>
           <li>Attendance reports repointed to the new system</li>
         </ul>
       </div>
       <div class="col col-next">
         <p class="col-label">Next</p>
+        <p class="col-quarter">Q3 close-out · this sprint</p>
         <ul class="item-list">
-          <li>Final removal of remaining old attendance infrastructure (in progress this sprint)</li>
-          <li>Resolve a data linking gap between Tutor Portal and timetabling data — needed for compliance teams to target specific student groups for audits</li>
+          <li>Final removal of old attendance infrastructure (in progress this sprint)</li>
+          <li>Resolve a data linking gap between Tutor Portal and timetabling data — needed by compliance teams to target specific student groups for audits</li>
         </ul>
       </div>
       <div class="col col-later">
         <p class="col-label">Later</p>
+        <p class="col-quarter">Q4 2025/26 onwards</p>
         <ul class="item-list">
-          <li>Database decommission — separate decision, no active timeline yet</li>
-          <li>Potential extension of the auto-marking pipeline to additional learner types beyond university students</li>
+          <li>Database decommission — separate decision, owner and timeline to be confirmed</li>
+          <li>Potential extension of auto-marking to learner types beyond university students</li>
         </ul>
       </div>
     </div>
