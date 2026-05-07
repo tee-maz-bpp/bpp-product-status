@@ -256,6 +256,21 @@
       border-radius: 0 6px 6px 0;
     }
 
+    /* ── Priority badge ── */
+    .priority {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+    }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -292,10 +307,108 @@
 
 <main class="main">
 
-  <!-- ── 1. Student Support Bot ── -->
+  <!-- ── P1. Legacy Attendance Decom ── -->
   <div class="card">
     <div class="card-header">
       <div class="card-header-left">
+        <span class="priority">Priority 1</span>
+        <h2 class="card-title">Legacy Attendance Decommission</h2>
+        <p class="card-desc">Replacing the old QR-scan attendance tracking system with the new Tutor Portal. Attendance is now recorded and reported through the new platform. The old system is being shut down.</p>
+      </div>
+      <div class="card-header-right">
+        <span class="rag rag-green">Completing</span>
+        <span class="target-label">Closing out Q3 2025/26</span>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="col col-now">
+        <p class="col-label">Now</p>
+        <p class="col-quarter">Q3 · May 2026</p>
+        <ul class="item-list">
+          <li>New Tutor Portal fully live for university students — attendance data flowing correctly</li>
+          <li>Online Classroom auto-marking live since 29 April — system automatically records attendance for online sessions, removing manual tutor marking</li>
+          <li>Old QR flow turned off</li>
+          <li>Attendance reports repointed to the new system</li>
+        </ul>
+      </div>
+      <div class="col col-next">
+        <p class="col-label">Next</p>
+        <p class="col-quarter">Q3 close-out · this sprint</p>
+        <ul class="item-list">
+          <li>Final removal of old attendance infrastructure (in progress this sprint)</li>
+        </ul>
+      </div>
+      <div class="col col-later">
+        <p class="col-label">Later</p>
+        <p class="col-quarter">Q4 2025/26 onwards</p>
+        <ul class="item-list">
+          <li>Database decommission — separate decision, owner and timeline to be confirmed</li>
+          <li>Potential extension of auto-marking to learner types beyond university students</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── P2. AA/EC Migration ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span class="priority">Priority 2</span>
+        <h2 class="card-title">Academic Appeals &amp; Extenuating Circumstances</h2>
+        <p class="card-desc">Moving Academic Appeals and Extenuating Circumstances from a legacy system into Salesforce. Students submit via the Hub; ORC and Results &amp; Awards manage cases in Salesforce. ~10,000 cases per year.</p>
+      </div>
+      <div class="card-header-right">
+        <span class="rag rag-red">At risk</span>
+        <span class="target-label">Target go-live: Q4 2025/26</span>
+      </div>
+    </div>
+
+    <div class="escalation">
+      <span class="escalation-icon">🚨</span>
+      <span><strong>Action needed:</strong> Data migration planning has not started. This is the longest lead-time item — without it, Q4 go-live is at risk. Ownership and a start date need to be confirmed now.</span>
+    </div>
+
+    <div class="columns">
+      <div class="col col-now">
+        <p class="col-label">Now</p>
+        <p class="col-quarter">Q3 · May 2026</p>
+        <ul class="item-list">
+          <li>Core Salesforce case setup completed and passed quality review</li>
+          <li>Student-facing Hub forms in development — feature flag in place, key screens in progress</li>
+          <li>Evidence submission confirmed — students submit via email reply, consistent with the existing process</li>
+          <li>Decision confirmed: all ~100 in-flight cases move to Salesforce at go-live, no dual running of old and new systems</li>
+          <li>Notification emails to students confirmed — owned and managed by Salesforce</li>
+        </ul>
+      </div>
+      <div class="col col-next">
+        <p class="col-label">Next</p>
+        <p class="col-quarter">Before Q4 go-live</p>
+        <ul class="item-list">
+          <li>Product sign-off of Salesforce case setup</li>
+          <li>Start data migration planning — mapping fields from the legacy system to Salesforce</li>
+          <li>ORC and Results &amp; Awards teams to review and sign off case management screens</li>
+        </ul>
+      </div>
+      <div class="col col-later">
+        <p class="col-label">Later</p>
+        <p class="col-quarter">Q4 2025/26 go-live</p>
+        <ul class="item-list">
+          <li>Students submit Academic Appeals and ECs via the Hub</li>
+          <li>ORC manages cases in Salesforce; EC cases transfer to Results &amp; Awards</li>
+          <li>Historical records retained for 6 years</li>
+          <li>Legacy system retired for this process</li>
+          <li>Two reports live: one for caseworkers, one anonymised trends view</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── P3. Student Support Bot ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span class="priority">Priority 3</span>
         <h2 class="card-title">Student Support Bot</h2>
         <p class="card-desc">AI-powered assistant embedded in the Student Hub. First point of contact for student support queries. Launched to all university students March 2026.</p>
       </div>
@@ -351,101 +464,6 @@
         <ul class="item-list">
           <li>Bot conversations visible to support agents in Salesforce — full context when a student escalates to a human</li>
           <li>Case milestones and history available for students who contact via phone or other channels</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 2. AA/EC Migration ── -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-header-left">
-        <h2 class="card-title">Academic Appeals &amp; Extenuating Circumstances</h2>
-        <p class="card-desc">Moving Academic Appeals and Extenuating Circumstances from a legacy system into Salesforce. Students submit via the Hub; ORC and Results &amp; Awards manage cases in Salesforce. ~10,000 cases per year.</p>
-      </div>
-      <div class="card-header-right">
-        <span class="rag rag-red">At risk</span>
-        <span class="target-label">Target go-live: Q4 2025/26</span>
-      </div>
-    </div>
-
-    <div class="escalation">
-      <span class="escalation-icon">🚨</span>
-      <span><strong>Action needed:</strong> Data migration planning has not started. This is the longest lead-time item — without it, Q4 go-live is at risk. Ownership and a start date need to be confirmed now.</span>
-    </div>
-
-    <div class="columns">
-      <div class="col col-now">
-        <p class="col-label">Now</p>
-        <p class="col-quarter">Q3 · May 2026</p>
-        <ul class="item-list">
-          <li>Core Salesforce case setup completed and passed quality review</li>
-          <li>Student-facing Hub forms in development — feature flag in place, key screens in progress</li>
-          <li>Evidence submission confirmed — students submit via email reply, consistent with the existing process</li>
-          <li>Decision confirmed: all ~100 in-flight cases move to Salesforce at go-live, no dual running of old and new systems</li>
-          <li>Notification emails to students confirmed — owned and managed by Salesforce</li>
-        </ul>
-      </div>
-      <div class="col col-next">
-        <p class="col-label">Next</p>
-        <p class="col-quarter">Before Q4 go-live</p>
-        <ul class="item-list">
-          <li>Product sign-off of Salesforce case setup</li>
-          <li>Start data migration planning — mapping fields from the legacy system to Salesforce</li>
-          <li>ORC and Results &amp; Awards teams to review and sign off case management screens</li>
-        </ul>
-      </div>
-      <div class="col col-later">
-        <p class="col-label">Later</p>
-        <p class="col-quarter">Q4 2025/26 go-live</p>
-        <ul class="item-list">
-          <li>Students submit Academic Appeals and ECs via the Hub</li>
-          <li>ORC manages cases in Salesforce; EC cases transfer to Results &amp; Awards</li>
-          <li>Historical records retained for 6 years</li>
-          <li>Legacy system retired for this process</li>
-          <li>Two reports live: one for caseworkers, one anonymised trends view</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 3. Legacy Attendance Decom ── -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-header-left">
-        <h2 class="card-title">Legacy Attendance Decommission</h2>
-        <p class="card-desc">Replacing the old QR-scan attendance tracking system with the new Tutor Portal. Attendance is now recorded and reported through the new platform. The old system is being shut down.</p>
-      </div>
-      <div class="card-header-right">
-        <span class="rag rag-green">Completing</span>
-        <span class="target-label">Closing out Q3 2025/26</span>
-      </div>
-    </div>
-
-    <div class="columns">
-      <div class="col col-now">
-        <p class="col-label">Now</p>
-        <p class="col-quarter">Q3 · May 2026</p>
-        <ul class="item-list">
-          <li>New Tutor Portal fully live for university students — attendance data flowing correctly</li>
-          <li>Online Classroom auto-marking live since 29 April — system automatically records attendance for online sessions, removing manual tutor marking</li>
-          <li>Old QR flow turned off</li>
-          <li>Attendance reports repointed to the new system</li>
-        </ul>
-      </div>
-      <div class="col col-next">
-        <p class="col-label">Next</p>
-        <p class="col-quarter">Q3 close-out · this sprint</p>
-        <ul class="item-list">
-          <li>Final removal of old attendance infrastructure (in progress this sprint)</li>
-        </ul>
-      </div>
-      <div class="col col-later">
-        <p class="col-label">Later</p>
-        <p class="col-quarter">Q4 2025/26 onwards</p>
-        <ul class="item-list">
-          <li>Database decommission — separate decision, owner and timeline to be confirmed</li>
-          <li>Potential extension of auto-marking to learner types beyond university students</li>
         </ul>
       </div>
     </div>
