@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AA/EC Migration — Agent Debate Transcript</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --teal: #028090;
+    --mint: #02C39A;
+    --ice: #CADCFC;
+    --white: #FFFFFF;
+    --offwhite: #F4F7FB;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --opt1: #3B82F6;
+    --opt1-bg: #EFF6FF;
+    --opt1-border: #BFDBFE;
+    --opt2: #8B5CF6;
+    --opt2-bg: #F5F3FF;
+    --opt2-border: #DDD6FE;
+    --judge: #D97706;
+    --judge-bg: #FFFBEB;
+    --judge-border: #FDE68A;
+    --verdict: #059669;
+    --verdict-bg: #ECFDF5;
+    --verdict-border: #6EE7B7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 36px 48px 28px;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--mint);
+    margin-bottom: 10px;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header .subtitle { font-size: 14px; color: var(--ice); opacity: 0.85; margin-bottom: 20px; }
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(202,220,252,0.2);
+    font-size: 12px;
+    color: var(--ice);
+    opacity: 0.75;
+  }
+  .header-meta strong { color: var(--white); opacity: 1; display: block; font-size: 13px; margin-bottom: 2px; }
+
+  /* CONTEXT BANNER */
+  .context-banner {
+    background: var(--white);
+    border-bottom: 2px solid var(--teal);
+    padding: 20px 48px;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .context-item { flex: 1; }
+  .context-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .context-value { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+  /* AGENTS */
+  .agents-intro {
+    padding: 32px 48px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    max-width: 1200px;
+  }
+  .agent-card {
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 2px solid;
+  }
+  .agent-card.opt1 { background: var(--opt1-bg); border-color: var(--opt1-border); }
+  .agent-card.opt2 { background: var(--opt2-bg); border-color: var(--opt2-border); }
+  .agent-card.judge { background: var(--judge-bg); border-color: var(--judge-border); }
+  .agent-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .agent-card.opt1 .agent-name { color: var(--opt1); }
+  .agent-card.opt2 .agent-name { color: var(--opt2); }
+  .agent-card.judge .agent-name { color: var(--judge); }
+  .agent-role { font-size: 11px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .agent-stance { font-size: 12px; color: var(--text); line-height: 1.4; }
+
+  /* DEBATE */
+  .debate { padding: 32px 48px; max-width: 1200px; }
+  .round-header {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .round-header:first-child { margin-top: 0; }
+
+  .message {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .message.right { flex-direction: row-reverse; }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .avatar.opt1 { background: var(--opt1); color: white; }
+  .avatar.opt2 { background: var(--opt2); color: white; }
+  .avatar.judge { background: var(--judge); color: white; }
+
+  .bubble {
+    max-width: 72%;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1.5px solid;
+    position: relative;
+  }
+  .bubble.opt1 { background: var(--opt1-bg); border-color: var(--opt1-border); }
+  .bubble.opt2 { background: var(--opt2-bg); border-color: var(--opt2-border); }
+  .bubble.judge { background: var(--judge-bg); border-color: var(--judge-border); max-width: 90%; }
+
+  .bubble-header {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .bubble.opt1 .bubble-header { color: var(--opt1); }
+  .bubble.opt2 .bubble-header { color: var(--opt2); }
+  .bubble.judge .bubble-header { color: var(--judge); }
+
+  .bubble p { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.6; }
+  .bubble p:last-child { margin-bottom: 0; }
+  .bubble ul { margin: 8px 0 8px 16px; }
+  .bubble ul li { font-size: 13px; color: var(--text); margin-bottom: 4px; line-height: 1.5; }
+  .bubble strong { font-weight: 700; }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag.opt1 { background: var(--opt1); color: white; }
+  .tag.opt2 { background: var(--opt2); color: white; }
+  .tag.judge { background: var(--judge); color: white; }
+
+  /* VERDICT */
+  .verdict {
+    margin: 32px 0;
+    background: var(--verdict-bg);
+    border: 2px solid var(--verdict-border);
+    border-radius: 12px;
+    padding: 28px 32px;
+  }
+  .verdict-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .verdict-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--verdict);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .verdict-title { font-size: 18px; font-weight: 700; color: var(--verdict); }
+  .verdict-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .verdict-body { font-size: 13px; color: var(--text); line-height: 1.7; }
+  .verdict-body p { margin-bottom: 10px; }
+  .verdict-body p:last-child { margin-bottom: 0; }
+  .verdict-body strong { color: var(--verdict); }
+
+  .verdict-reasons {
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .verdict-reason {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 14px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--verdict-border);
+  }
+  .verdict-reason-num {
+    width: 22px;
+    height: 22px;
+    background: var(--verdict);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-reason-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .verdict-reason-text strong { color: var(--text); font-weight: 700; }
+
+  /* SIGNOFF */
+  .signoff {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .signoff-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--ice); opacity: 0.7; margin-bottom: 4px; }
+  .signoff-value { font-size: 13px; color: var(--white); }
+  .signoff-divider { width: 1px; height: 40px; background: rgba(202,220,252,0.2); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 48px;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid #e2e8f0;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">AI Agent Debate · AA/EC Migration</div>
+  <h1>Data Migration Strategy: Option 1 vs Option 2</h1>
+  <div class="subtitle">Two AI agents argued opposing positions. A third acted as judge. The judge's ruling became the confirmed decision.</div>
+  <div class="header-meta">
+    <div><strong>Date</strong>May 2026</div>
+    <div><strong>PM</strong>Tatenda Mazivanhanga</div>
+    <div><strong>Decision confirmed</strong>11 May 2026</div>
+    <div><strong>Stakeholder sign-off</strong>Shane Horwell · Caroline Durham · Liz Baines</div>
+    <div><strong>Outcome</strong>Option 1 — full migration on cutover</div>
+  </div>
+</div>
+
+<div class="context-banner">
+  <div class="context-item">
+    <div class="context-label">The question</div>
+    <div class="context-value">How do we handle data when we cut over from Direct Apps (Rails) to Salesforce for AA/EC case management?</div>
+  </div>
+  <div class="context-item">
+    <div class="context-label">Option 1</div>
+    <div class="context-value">Move all in-flight cases <em>and</em> 6 years of historical data to Salesforce on cutover day. Direct Apps decommissioned immediately.</div>
+  </div>
+  <div class="context-item">
+    <div class="context-label">Option 2</div>
+    <div class="context-value">Let in-flight cases finish in Direct Apps first. Only migrate to Salesforce once they reach a terminal state. Historical data follows separately.</div>
+  </div>
+  <div class="context-item">
+    <div class="context-label">Scope</div>
+    <div class="context-value">~100 in-flight cases · ~60,000 historical records · 6-year retention requirement · ~28k students</div>
+  </div>
+</div>
+
+<div class="agents-intro">
+  <div class="agent-card opt1">
+    <div class="agent-name">Agent A — Option 1 Advocate</div>
+    <div class="agent-role">Argues for full migration on cutover</div>
+    <div class="agent-stance">Position: move everything — in-flight and historical — to Salesforce on day one. Clean break. Single source of truth from launch.</div>
+  </div>
+  <div class="agent-card opt2">
+    <div class="agent-name">Agent B — Option 2 Advocate</div>
+    <div class="agent-role">Argues for phased / in-flight first approach</div>
+    <div class="agent-stance">Position: let live cases finish in Direct Apps naturally. Avoid migrating cases mid-flow. Reduce cutover risk by keeping two systems briefly.</div>
+  </div>
+  <div class="agent-card judge">
+    <div class="agent-name">Agent C — Judge</div>
+    <div class="agent-role">Independent evaluator · No prior position</div>
+    <div class="agent-stance">Scores each argument on evidence, feasibility, and risk. Issues a binding ruling with reasoning.</div>
+  </div>
+</div>
+
+<div class="debate">
+
+  <div class="round-header">Round 1 — Opening Arguments</div>
+
+  <!-- Agent A opening -->
+  <div class="message">
+    <div class="avatar opt1">A</div>
+    <div class="bubble opt1">
+      <div class="tag opt1">Option 1</div>
+      <div class="bubble-header">Agent A · Opening</div>
+      <p>Option 1 is the only coherent choice here. The moment you run two systems in parallel — even briefly — you've created a reporting problem you can't easily undo. Salesforce is being positioned as the single source of truth for both operational case management and the two strategic reports (master + trends). If some cases live in Direct Apps and some in Salesforce at the same time, neither report is complete. ORC can't work cases reliably. Results & Awards can't see ECs. You've degraded the very thing you built Salesforce to replace.</p>
+      <p>The argument for Option 2 sounds cautious, but it conflates "lower risk at cutover" with "lower overall risk." Keeping Direct Apps alive costs money, requires ongoing support from Dan Jackson's team, and delays decommission. Every week of parallel running is a week of dual maintenance.</p>
+      <p><strong>Migrate everything on day one. Accept the short-term migration effort. Get to a clean state.</strong></p>
+    </div>
+  </div>
+
+  <!-- Agent B opening -->
+  <div class="message right">
+    <div class="avatar opt2">B</div>
+    <div class="bubble opt2">
+      <div class="tag opt2">Option 2</div>
+      <div class="bubble-header">Agent B · Opening</div>
+      <p>Option 1 sounds clean in theory. In practice, you are proposing to migrate ~100 live cases mid-process. These aren't static records — they are active workflows. An AA case mid-review, with evidence uploaded and an ORC caseworker mid-notes, gets frozen and re-thawed in a completely different system. The risk of data loss, broken attachments, or corrupted state is real and concentrated at the worst possible moment: launch day.</p>
+      <p>Option 2 says: let the ~100 in-flight cases finish naturally in Direct Apps. This takes weeks at most — AA cases don't linger indefinitely. Meanwhile, Salesforce goes live for all new submissions. Historical migration can proceed in parallel, at lower risk, without time pressure. You get the same end state but with far less cutover day exposure.</p>
+      <p><strong>The dual-system period is short. The risk of migrating live cases is not.</strong></p>
+    </div>
+  </div>
+
+  <div class="round-header">Round 2 — Cross-Examination</div>
+
+  <!-- Agent A challenges B -->
+  <div class="message">
+    <div class="avatar opt1">A</div>
+    <div class="bubble opt1">
+      <div class="tag opt1">Option 1</div>
+      <div class="bubble-header">Agent A · Challenge to B</div>
+      <p>Agent B assumes AA cases are simple, linear workflows that "finish naturally." That's not the data. An AA case has up to <strong>seven distinct status transitions</strong>:</p>
+      <ul>
+        <li>Submitted → In ORC Review → Rejected</li>
+        <li>→ Refer to Board → Board Rejected</li>
+        <li>→ Full Application Review → Refer to New Board</li>
+        <li>→ COP Letter → Closed</li>
+      </ul>
+      <p>A case that appears closed can be re-entered at almost any stage — including after a student graduates. There is no clean "this case is done" signal you can trust to leave it in Direct Apps. You'd be maintaining Direct Apps indefinitely for a tail of edge cases with no defined end point.</p>
+      <p>Option 2's "a few weeks" assumption does not survive contact with reality.</p>
+    </div>
+  </div>
+
+  <!-- Agent B challenges A -->
+  <div class="message right">
+    <div class="avatar opt2">B</div>
+    <div class="bubble opt2">
+      <div class="tag opt2">Option 2</div>
+      <div class="bubble-header">Agent B · Challenge to A</div>
+      <p>Agent A's reporting argument is valid but overstated. A well-scoped dual-system period — say, 4 weeks — with a clear freeze on new Direct Apps submissions from cutover day would produce a shrinking pool of legacy cases, not an open-ended commitment. Reporting could flag cases as "legacy" with a simple status field. ORC would know which system to look at by case creation date.</p>
+      <p>The deeper concern with Option 1 is the 60,000 historical records. These aren't just data rows — they include uploaded evidence documents, email threads, and attachments. Field mapping validation in a test environment is not the same as a successful live migration at scale. What's the rollback plan if the migration fails at 40,000 records?</p>
+      <p><strong>The risk is asymmetric. A failed migration is worse than a 4-week dual-system period.</strong></p>
+    </div>
+  </div>
+
+  <div class="round-header">Round 3 — Rebuttals</div>
+
+  <!-- Agent A rebuttal -->
+  <div class="message">
+    <div class="avatar opt1">A</div>
+    <div class="bubble opt1">
+      <div class="tag opt1">Option 1</div>
+      <div class="bubble-header">Agent A · Rebuttal</div>
+      <p>The "legacy flag" workaround Agent B proposes introduces exactly the complexity it claims to avoid. Now you need: a status field in both systems, a cross-system reporting query, ORC trained on which system to use for which case, and a defined trigger to finally decommission Direct Apps. That's not a 4-week problem — that's an architectural decision that creates months of maintenance overhead.</p>
+      <p>On rollback: the migration happens to a test environment first (Phase 3 of the 6-phase plan). A failed migration at 40,000 records in test is a test failure — fixable before go-live. The production migration runs only once validation has passed. The rollback concern is addressed by the phased migration plan, not by keeping Direct Apps alive.</p>
+      <p>Option 1 is harder to execute. It is not riskier in the long run.</p>
+    </div>
+  </div>
+
+  <!-- Agent B rebuttal -->
+  <div class="message right">
+    <div class="avatar opt2">B</div>
+    <div class="bubble opt2">
+      <div class="tag opt2">Option 2</div>
+      <div class="bubble-header">Agent B · Rebuttal</div>
+      <p>I accept Agent A's point on the 7-stage AA status chain — I had underestimated it. That does complicate the "cases finish naturally" argument. A case at "Refer to Board" stage with an upcoming board date cannot simply be left in Direct Apps while all new board activity moves to Salesforce.</p>
+      <p>However, my core concern stands: the 60,000 historical records include evidence documents and attachments that are not structured data rows. The field-mapping exercise (SF-3681) is still in progress. Migrating attachments at scale — especially from a Rails file store — is operationally different from migrating structured case fields. I would want explicit confirmation that evidence documents are in scope and validated before committing to Option 1 unconditionally.</p>
+      <p>I am partially conceding on in-flight cases. I maintain my concern on historical attachment migration.</p>
+    </div>
+  </div>
+
+  <div class="round-header">Judge's Deliberation & Ruling</div>
+
+  <!-- Judge ruling -->
+  <div class="message">
+    <div class="avatar judge">J</div>
+    <div class="bubble judge">
+      <div class="tag judge">Judge</div>
+      <div class="bubble-header">Agent C · Deliberation</div>
+      <p>I have reviewed both positions across three rounds. My assessment:</p>
+      <p><strong>Agent B's strongest argument</strong> was the attachment/evidence document migration risk — this is a legitimate technical concern that Option 1's advocates must address explicitly in the migration spec. Agent B was also right to probe the rollback scenario.</p>
+      <p><strong>Agent A's decisive argument</strong> was the 7-stage AA status chain. This fundamentally undermines the Option 2 premise. If cases can re-enter at any stage post-closure — including after graduation — there is no principled cutoff point for "Direct Apps cases are done." Option 2 does not have a defined end state. That is not a minor operational inconvenience; it is a structural problem that would require ongoing engineering support for an indefinite period.</p>
+      <p><strong>Agent A was also correct</strong> that Salesforce as the single source of truth is non-negotiable if the two Salesforce reports (master + trends) are to function from day one. A dual-system reporting setup — even temporarily — degrades the strategic value of the entire migration.</p>
+      <p>Agent B's partial concession in Round 3 on in-flight cases was telling. Once that position is conceded, Option 2 reduces to: "migrate in-flight cases too, but do historical migration more carefully." That is not a separate option — that is a migration execution concern within Option 1.</p>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <div class="verdict-header">
+      <div class="verdict-icon">✓</div>
+      <div>
+        <div class="verdict-title">Ruling: Option 1</div>
+        <div class="verdict-subtitle">Full migration on cutover — in-flight cases + 6-year historical — to Salesforce</div>
+      </div>
+    </div>
+    <div class="verdict-body">
+      <p>Option 1 is the correct approach. The four decisive reasons, in order of weight:</p>
+    </div>
+    <div class="verdict-reasons">
+      <div class="verdict-reason">
+        <div class="verdict-reason-num">1</div>
+        <div class="verdict-reason-text"><strong>No clean terminal state exists for AA cases.</strong> Up to 7 status transitions; cases can re-enter at any stage, including post-graduation. Option 2 has no defined end point — it would require Direct Apps maintenance indefinitely.</div>
+      </div>
+      <div class="verdict-reason">
+        <div class="verdict-reason-num">2</div>
+        <div class="verdict-reason-text"><strong>Salesforce must be the single source of truth from day one.</strong> Splitting active cases across two systems makes neither the master report nor the trends report accurate at launch. This undermines the entire migration's strategic purpose.</div>
+      </div>
+      <div class="verdict-reason">
+        <div class="verdict-reason-num">3</div>
+        <div class="verdict-reason-text"><strong>Option 2's "short dual-system period" assumption is false.</strong> The complexity of AA case re-entry, cross-system reporting, and ORC training overhead means parallel running would extend well beyond any 4-week estimate.</div>
+      </div>
+      <div class="verdict-reason">
+        <div class="verdict-reason-num">4</div>
+        <div class="verdict-reason-text"><strong>Migration risk is manageable via the phased plan.</strong> Test environment validation (Phase 3) addresses the rollback concern. Attachment migration must be explicitly scoped in the migration spec (SF-3628) — this is an action item, not a reason to choose Option 2.</div>
+      </div>
+    </div>
+    <div class="verdict-body" style="margin-top:16px;">
+      <p><strong>Condition:</strong> Evidence document / attachment migration must be explicitly confirmed in scope and validated in the test environment before Phase 6 (live migration) proceeds. This is the one material risk Agent B correctly identified.</p>
+    </div>
+  </div>
+
+  <div class="signoff">
+    <div>
+      <div class="signoff-label">Decision confirmed</div>
+      <div class="signoff-value">11 May 2026</div>
+    </div>
+    <div class="signoff-divider"></div>
+    <div>
+      <div class="signoff-label">Stakeholder sign-off</div>
+      <div class="signoff-value">Shane Horwell · Caroline Durham · Liz Baines</div>
+    </div>
+    <div class="signoff-divider"></div>
+    <div>
+      <div class="signoff-label">Decision reaffirmed</div>
+      <div class="signoff-value">16 June 2026 — challenge raised by Yani via Joss Wyatt, closed same day. Option 1 stands.</div>
+    </div>
+    <div class="signoff-divider"></div>
+    <div>
+      <div class="signoff-label">Migration ticket</div>
+      <div class="signoff-value"><a href="https://bpp-org.atlassian.net/browse/SF-3628" target="_blank" style="color:var(--mint)">SF-3628</a></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  AA/EC Migration · Agent Debate Transcript · May 2026 · PM: Tatenda Mazivanhanga
+</div>
+
+</body>
+</html>
